@@ -1,0 +1,1 @@
+"C:\Users\shivr\Lock-Unlock-Laptop-PC-Screen-Using-Face-Recognition-master\Scripts\python.exe" "C:\Lock-Unlock-Laptop-PC-Screen-Using-Face-Recognition-master\create_face_datasets.py" %*
