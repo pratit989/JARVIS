@@ -2,13 +2,13 @@ import os
 import random
 import time
 import webbrowser
-import vlc
 from sys import exit
 
 import pafy
 import pyttsx3
 import requests
 import speech_recognition as sr
+import vlc
 from playsound import playsound
 from selenium.common.exceptions import NoSuchElementException
 
@@ -16,7 +16,7 @@ from selenium.common.exceptions import NoSuchElementException
 import lookup_drive_change
 from run_lookup import RunLookup
 
-# Use cmd to install modules the pycharm pip doesn't works
+# Use cmd to install modules if the pycharm pip doesn't works
 RunLookup()
 
 speech = sr.Recognizer()
@@ -153,7 +153,7 @@ class Browser:
         from selenium.webdriver.chrome.options import Options
         options = Options()
         options.headless = True
-        self.driver = webdriver.Chrome(executable_path="C:\\chromedriver.exe", options=options)
+        self.driver = webdriver.Chrome(executable_path="chromedriver.exe", options=options)
         # chrome browser is used for scraping
         self.path = path_init
         self.implicit_wait_time = implicit_wait_time  # http://www.aptuz.com/blog/selenium-implicit-vs-explicit-waits/
@@ -549,7 +549,7 @@ class Browser:
         return results
 
 
-path = "C:\\chromedriver.exe"  # SET YOU PATH TO phantomjs
+path = "chromedriver.exe"  # SET YOU PATH TO phantomjs
 br = Browser(path)
 
 
