@@ -5,10 +5,7 @@
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludePattern pattern="dict.txt" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.7 (venv)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.8 (J.A.R.V.I.S)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-  <component name="TestRunnerService">
-    <option name="PROJECT_TEST_RUNNER" value="Unittests" />
   </component>
 </module>

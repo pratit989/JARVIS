@@ -2,19 +2,20 @@ import os
 import random
 import time
 import webbrowser
-from sys import exit
+from sys import exit as terminate
 
 import pafy
 import pyttsx3
 import requests
 import speech_recognition as sr
-import vlc
 from playsound import playsound
 from selenium.common.exceptions import NoSuchElementException
 
 # import lookup_exe
 import lookup_drive_change
 from run_lookup import RunLookup
+
+os.add_dll_directory(r'C:\Program Files (x86)\VideoLAN\VLC')
 
 # Use cmd to install modules if the pycharm pip doesn't works
 RunLookup()
@@ -25,13 +26,12 @@ engine = 0
 try:
     engine = pyttsx3.init()
 except ImportError:
-    print('Requested driver is not found')
+    terminate('Requested driver is not found')
 except RuntimeError:
-    print('Driver fails to initialize')
+    terminate('Driver fails to initialize')
 
 if engine == 0:
-    print("Please install pywin32")
-    exit()
+    terminate("Please install pywin32")
 else:
     voices = engine.getProperty('voices')
     engine.setProperty('voice',
@@ -58,21 +58,18 @@ websites_dict = {'facebook': 'https://www.facebook.com', 'Facebook': 'https://ww
 goodbye_dict = {'bye': 'bye', 'goodbye': 'goodbye', 'buy': 'buy', 'bike': 'bike', 'exit': 'exit'}
 thank_you_dict = {'thanks': 'thanks', 'thank': 'thank', 'good': 'good'}
 garbage_dict = {'...': '...', '-': '-'}
-how_dict = {'how ': 'how ', 'janvi how ': 'janvi how ', 'Janvi how ': 'Janvi how ', "how's ": "how's ",
-            "How's ": "How's ", "janvi how's ": "janvi how's ", "Janvi how's ": "Janvi how's "}
-who_dict = {'who ': 'who ', 'janvi who ': 'janvi who ', 'Janvi who ': 'Janvi who ', "who's ": "who's ",
-            "Who's ": "Who's ", "Janvi who's ": "Janvi who's ", "janvi who's ": "janvi who's "}
-what_dict = {'what ': 'what ', 'janvi what ': 'janvi what ', 'Janvi what ': 'Janvi what ', "what's ": "what's ",
-             "What's ": "What's ", "janvi what's ": "janvi what's ", "Janvi what's ": "Janvi what's "}
-where_dict = {'where ': 'where ', 'janvi where ': 'janvi where ', 'Janvi where ': 'Janvi where ',
-              "Where's ": "Where's ", "where's ": "where's ", "Janvi where's ": "Janvi where's ",
-              "janvi where's ": "janvi where's "}
-when_dict = {'when ': 'when ', 'janvi when ': 'janvi when ', 'Janvi when ': 'Janvi when ', "When's ": "When's ",
-             "when's ": "when's ", "Janvi when's ": "Janvi when's ", "janvi when's ": "janvi when's "}
-whom_dict = {'whom ': 'whom ', 'janvi whom ': 'janvi whom ', 'Janvi whom ': 'Janvi whom ', "Whom's ": "Whom's ",
-             "whom's ": "whom's ", "Janvi whom's ": "Janvi whom's ", "janvi whom's ": "janvi whom's ",
-             'to whom ': 'to whom ', 'To whom ': 'To whom ', 'Janvi to whom ': 'Janvi to whom ',
-             'janvi to whom ': 'janvi to whom ', 'whom': 'whom'}
+how_dict = {'how ': 'how ', 'jarvis how ': 'jarvis how ', "how's ": "how's ",
+            "How's ": "How's "}
+who_dict = {'who ': 'who ', "who's ": "who's ",
+            "Who's ": "Who's "}
+what_dict = {'what ': 'what ', 'jarvis what ': 'jarvis what ', "what's ": "what's ",
+             "What's ": "What's "}
+where_dict = {'where ': 'where ', "Where's ": "Where's ", "where's ": "where's "}
+when_dict = {'when ': 'when ', "When's ": "When's ",
+             "when's ": "when's ", "jarvis when's ": "jarvis when's "}
+whom_dict = {'whom ': 'whom ', "Whom's ": "Whom's ",
+             "whom's ": "whom's ", 'to whom ': 'to whom ', 'To whom ': 'To whom ', 'jarvis to whom ': 'jarvis to whom ',
+             'whom': 'whom'}
 which_dict = {'which ': 'which', 'Which ': 'Which ', 'Jarvis which ': 'Jarvis which ', 'jarvis which': 'jarvis which'}
 listening_ability_question_dict = {'can ': 'can ', 'am ': 'am ', 'are you ': 'are you ', 'Are you ': 'Are you ',
                                    'Can ': 'Can ', 'Am ': 'Am '}
@@ -113,15 +110,15 @@ img_dict = {'do image search for': 'do image search for', 'do image search of': 
             'give me some images of': 'give me some images of', 'give me images of': 'give me images of',
             'show me some images of': 'show me some images of', 'show me some images for': 'show me some images for'}
 
-mp3_listening_problem_list = ['C:\\Users\\shivr\\PycharmProjects\\J.A.R.V.I.S\\mp3\\listening_problem_1.mp3',
-                              'C:\\Users\\shivr\\PycharmProjects\\J.A.R.V.I.S\\mp3\\listening_problem_2.mp3']
-mp3_struggling_list = ['C:\\Users\\shivr\\PycharmProjects\\J.A.R.V.I.S\\mp3\\struggling_1.mp3']
+mp3_listening_problem_list = ['mp3/listening_problem_1.mp3',
+                              'mp3/listening_problem_2.mp3']
+mp3_struggling_list = ['mp3/struggling_1.mp3']
 mp3_google_search = ['mp3/google_search_1.mp3', 'mp3/google_search_2.mp3']
 mp3_greeting_list = ['mp3/greeting_accept_1.mp3', 'mp3/greeting_accept.mp3']
 mp3_open_launch_list = ['mp3/open_1.mp3', 'mp3/open_2.mp3', 'mp3/open_3.mp3']
 mp3_goodbye_list = ['mp3/bye.mp3']
 mp3_thank_you_list = ['mp3/thank_you_1.mp3', 'mp3/thank_you_2.mp3']
-mp3_listening_list = ['C:\\Users\\shivr\\PycharmProjects\\J.A.R.V.I.S\\mp3\\listening_robot_blip.mp3']
+mp3_listening_list = ['mp3/listening_robot_blip.mp3']
 
 error_occurrence = 0
 counter = 0
@@ -181,7 +178,6 @@ class Browser:
 
     @staticmethod
     def get_search_url(query, search_check):
-        global url_get_search
         from urllib.parse import quote_plus
         query = quote_plus(query)
         if 'definition' in search_check:  # For searching querys which include 'definition'
@@ -202,7 +198,8 @@ class Browser:
             return url_get_search
 
     def scrape(self, url_check, query):
-        global counter, output
+        global counter
+        output = ''
         if 'ia=definition' in url_check:
             try:
                 definition_result = self.driver.find_element_by_class_name("zci__def__definition")
@@ -565,7 +562,7 @@ mic_prob = 0
 
 # To recognize the given voice command and convert it to text.
 def read_voice_cmd():
-    global error_occurrence, audio, part, mic_prob
+    global error_occurrence, part, mic_prob
     voice_text = ''
     if part == 0:
         os.system('cls')
@@ -947,173 +944,62 @@ def get_weather(weather_and_temperature_dict, voice_note_para):
 # The procedure function to get weather
 def weather_valid_note(voice_note_para, weather_and_temperature_dict):
     global city, url, unit
+    url = ''
     if get_weather(weather_and_temperature_dict, voice_note_para):
         for key_var, value_var in weather_dict.items():
             try:
                 if value_var != voice_note_para.split('weather')[0]:
-                    if 'how is the weather' == voice_note_para:
-                        if ' janvi' in voice_note_para:
+                    if 'how is the weather' or 'how is weather' == voice_note_para:
+                        if ' jarvis' in voice_note_para:
                             voice_note_para = voice_note_para.replace(' jarvis', '')
-                        elif ' Janvi' in voice_note_para:
+                        elif ' jarvis' in voice_note_para:
                             voice_note_para = voice_note_para.replace(' Jarvis', '')
-                        elif 'janvi ' in voice_note_para:
+                        elif 'jarvis ' in voice_note_para:
                             voice_note_para = voice_note_para.replace('jarvis ', '')
-                        elif 'Janvi ' in voice_note_para:
+                        elif 'jarvis ' in voice_note_para:
                             voice_note_para = voice_note_para.replace(' Jarvis ', '')
-                        city = voice_note_para.split('weather')[0]
+                        if 'of' in voice_note_para:
+                            city = voice_note_para.split('in ')[1]
+                        elif 'in' in voice_note_para:
+                            city = voice_note_para.split('of ')[1]
+                            if 'at' in city:
+                                city = city.split('at ')[1]
+                        elif 'at' in voice_note_para:
+                            city = voice_note_para.split('at ')[1]
+                            if 'in' in city:
+                                city = city.split('at ')[1]
                         unit = '&units=metric'
                         api_address_0 = 'http://api.openweathermap.org/data/2.5/weather?appid' \
-                                        '=c907c9810765d09be2499c639752a6ff&q= '
+                                        '=c907c9810765d09be2499c639752a6ff&q='
                         url = api_address_0 + city + unit
                         return True
                     elif 'what is the weather' == voice_note_para:
-                        if ' janvi' in voice_note_para:
+                        if ' jarvis' in voice_note_para:
                             voice_note_para = voice_note_para.replace(' jarvis', '')
-                        elif ' Janvi' in voice_note_para:
+                        elif ' jarvis' in voice_note_para:
                             voice_note_para = voice_note_para.replace(' Jarvis', '')
-                        elif 'janvi ' in voice_note_para:
+                        elif 'jarvis ' in voice_note_para:
                             voice_note_para = voice_note_para.replace('jarvis ', '')
-                        elif 'Janvi ' in voice_note_para:
+                        elif 'jarvis ' in voice_note_para:
                             voice_note_para = voice_note_para.replace(' Jarvis ', '')
-                        city = voice_note_para.split('weather')[0]
+                        if 'of' in voice_note_para:
+                            city = voice_note_para.split('in ')[1]
+                        elif 'in' in voice_note_para:
+                            city = voice_note_para.split('of ')[1]
+                            if 'at' in city:
+                                city = city.split('at ')[1]
+                        elif 'at' in voice_note_para:
+                            city = voice_note_para.split('at ')[1]
+                            if 'in' in city:
+                                city = city.split('at ')[1]
                         unit = '&units=metric'
                         api_address_0 = 'http://api.openweathermap.org/data/2.5/weather?appid' \
-                                        '=c907c9810765d09be2499c639752a6ff&q= '
+                                        '=c907c9810765d09be2499c639752a6ff&q='
                         url = api_address_0 + city + unit
                         return True
             except IndexError:
                 pass
                 return False
-        for key_var, value_var in weather_dict.items():
-            try:
-                if key_var != voice_note_para.split('weather')[1]:
-                    if 'of' in voice_note_para.split('weather ')[1]:
-                        if ' janvi' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' jarvis', '')
-                        elif ' Janvi' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis', '')
-                        elif 'janvi ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace('jarvis ', '')
-                        elif 'Janvi ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis ', '')
-                        city = voice_note_para.split('of ')[1]
-                        unit = '&units=metric'
-                        api_address_0 = 'http://api.openweathermap.org/data/2.5/weather?appid' \
-                                        '=c907c9810765d09be2499c639752a6ff&q= '
-                        url = api_address_0 + city + unit
-                        return True
-                    elif 'in ' in voice_note_para:
-                        if ' janvi' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' jarvis', '')
-                        elif ' Janvi' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis', '')
-                        elif 'janvi ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace('jarvis ', '')
-                        elif 'Janvi ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis ', '')
-                        city = voice_note_para.split('in ')[1]
-                        unit = '&units=metric'
-                        api_address_0 = 'http://api.openweathermap.org/data/2.5/weather?appid' \
-                                        '=c907c9810765d09be2499c639752a6ff&q= '
-                        url = api_address_0 + city + unit
-                        return True
-                    else:
-                        if ' janvi' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' jarvis', '')
-                        elif ' Janvi' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis', '')
-                        elif 'janvi ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace('jarvis ', '')
-                        elif 'Janvi ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis ', '')
-                        city = voice_note_para.split('weather ')[1]
-                        unit = '&units=metric'
-                        api_address_0 = 'http://api.openweathermap.org/data/2.5/weather?appid' \
-                                        '=c907c9810765d09be2499c639752a6ff&q= '
-                        url = api_address_0 + city + unit
-                        return True
-            except IndexError:
-                pass
-        for key_var, value_var in weather_dict.items():
-            try:
-                if value_var != voice_note_para.split('temperature')[1]:
-                    if 'of ' in voice_note_para.split('temperature')[1]:
-                        if ' jarvis' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' jarvis', '')
-                        elif ' Janvi' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis', '')
-                        elif 'janvi ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace('jarvis ', '')
-                        elif 'Janvi ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis ', '')
-                        city = voice_note_para.split('of ')[1]
-                        unit = '&units=metric'
-                        api_address_0 = 'http://api.openweathermap.org/data/2.5/weather?appid' \
-                                        '=c907c9810765d09be2499c639752a6ff&q= '
-                        url = api_address_0 + city + unit
-                        return True
-                    elif 'in ' in voice_note_para:
-                        if ' jarvis' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' jarvis', '')
-                        elif ' Jarvis' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis', '')
-                        elif 'jarvis ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace('jarvis ', '')
-                        elif 'Jarvis ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis ', '')
-                        city = voice_note_para.split('in ')[1]
-                        unit = '&units=metric'
-                        api_address_0 = 'http://api.openweathermap.org/data/2.5/weather?appid' \
-                                        '=c907c9810765d09be2499c639752a6ff&q= '
-                        url = api_address_0 + city + unit
-                        return True
-                    elif 'what is the temperature' == voice_note_para:
-                        if ' jarvis' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' jarvis', '')
-                        elif ' Jarvis' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis', '')
-                        elif 'jarvis ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace('jarvis ', '')
-                        elif 'Jarvis ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis ', '')
-                        city = voice_note_para.split('temperature')[0]
-                        unit = '&units=metric'
-                        api_address_0 = 'http://api.openweathermap.org/data/2.5/weather?appid' \
-                                        '=c907c9810765d09be2499c639752a6ff&q= '
-                        url = api_address_0 + city + unit
-                        return True
-                    elif 'how is the temperature' == voice_note_para:
-                        if ' jarvis' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' jarvis', '')
-                        elif ' Jarvis' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis', '')
-                        elif 'jarvis ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace('jarvis ', '')
-                        elif 'Jarvis ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis ', '')
-                        city = voice_note_para.split('temperature')[0]
-                        unit = '&units=metric'
-                        api_address_0 = 'http://api.openweathermap.org/data/2.5/weather?appid' \
-                                        '=c907c9810765d09be2499c639752a6ff&q= '
-                        url = api_address_0 + city + unit
-                        return True
-                    else:
-                        if ' jarvis' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' jarvis', '')
-                        elif ' Jarvis' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis', '')
-                        elif 'jarvis ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace('jarvis ', '')
-                        elif 'Jarvis ' in voice_note_para:
-                            voice_note_para = voice_note_para.replace(' Jarvis ', '')
-                        city = voice_note_para.split('temperature ')[1]
-                        unit = '&units=metric'
-                        api_address_0 = 'http://api.openweathermap.org/data/2.5/weather?appid' \
-                                        '=c907c9810765d09be2499c639752a6ff&q= '
-                        url = api_address_0 + city + unit
-                        return True
-            except IndexError:
-                pass
         return False
     return False
 
@@ -1139,7 +1025,6 @@ def current_time(voice_note_para, time_ask_dict):
 
 
 def wiki_search(voice_note_para, wiki_w_h_words_dict):
-    global search_note_wiki
     if 'jarvis ' in voice_note_para:
         voice_note_para = voice_note_para.replace('jarvis ', '')
     elif 'Jarvis ' in voice_note_para:
@@ -1317,7 +1202,6 @@ def wiki_actual_search_function(search_note):
 
 
 def youtube(voice_note_para, youtube_dict):
-    global instance, player
     for key_var, value_var in youtube_dict.items():
         try:
             if key_var in voice_note_para:
@@ -1325,6 +1209,7 @@ def youtube(voice_note_para, youtube_dict):
         except IndexError:
             pass
     for key_var, value_var in youtube_dict.items():
+        import vlc
         if key_var not in voice_note_para:
             import urllib.request
             instance = 0
@@ -1349,7 +1234,7 @@ def youtube(voice_note_para, youtube_dict):
                         media.get_mrl()
                         player.set_media(media)
                         player.play()
-                        return True
+                        return player
                     else:
                         break
                 except ValueError:
@@ -1358,7 +1243,7 @@ def youtube(voice_note_para, youtube_dict):
 
 
 def youtube_download(voice_note_para, youtube_dict):
-    global vid_name, key_word
+    key_word = ''
     if 'download' in voice_note_para:
         from bs4 import BeautifulSoup
         import urllib.parse
@@ -1463,7 +1348,6 @@ def pause(voice_note_para, pause_word_dict):
 
 
 def image_search(voice_note_para, image_search_dict):
-    global url_image
     for key_var, value_var in image_search_dict.items():
         try:
             if key_var in voice_note_para:
@@ -1478,10 +1362,11 @@ def image_search(voice_note_para, image_search_dict):
 
 # The main function
 if __name__ == '__main__':
-
+    video_player = None
+    url = ''
     engine.setProperty('voice',
                        'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\MSTTS_V110_enIN_HeeraM')
-    speak_text_cmd("Hello there, this is Janvi, an indian artificial intelligence system created by Pratit")
+    speak_text_cmd("Hello there, this is jarvis, an indian artificial intelligence system created by Pratit")
     engine.setProperty('voice', 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-US_ZIRA_11')
     print()
     speak_text_cmd(
@@ -1493,7 +1378,8 @@ if __name__ == '__main__':
         block = 0
 
     while True:
-
+        
+        city = 'Mumbai'
         engine.setProperty('voice', 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN'
                                     '-US_ZIRA_11')
         voice_note = read_voice_cmd()
@@ -1517,7 +1403,7 @@ if __name__ == '__main__':
                                    )
                 speak_text_cmd(
                     "I am an Indian Artificial Intelligence System Created by Pratit Todkar"
-                    "I go by the name Janvi"
+                    "I go by the name jarvis"
                 )
                 engine.setProperty('voice',
                                    'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN'
@@ -1536,7 +1422,7 @@ if __name__ == '__main__':
             if error_occurrence == 5:
                 error_occurrence = 0
             continue
-        elif 'hey Janvi' == voice_note:
+        elif 'hey jarvis' == voice_note:
             speak_text_cmd('Yes, I am here')
             error_occurrence = 0
             continue
@@ -1547,19 +1433,21 @@ if __name__ == '__main__':
             path_vid = input()
             name = path_vid.replace('.mp4', '').rsplit('\\')[-1]
             clip = mp.VideoFileClip(path_vid)
-            clip.audio.write_audiofile("C:\\Users\\shivr\\OneDrive\\Desktop\\" + name + '.mp3')
-            path = "C:\\Users\\shivr\\OneDrive\\Desktop\\"
+            clip.audio.write_audiofile(os.path.expanduser('~user') + "\\Desktop\\" + name + '.mp3')
+            path = os.path.expanduser('~user') + "\\Desktop\\"
             path = os.path.realpath(path)
             os.startfile(path)
         elif player_close(voice_note, player_shutdown):
-            player.stop()
+            if video_player is not None:
+                video_player.stop()
         elif player_play(voice_note, player_resume):
-            player.pause()
+            if video_player is not None:
+                video_player.pause()
         elif pause(voice_note, player_pause):
-            player.pause()
+            if video_player is not None:
+                video_player.pause()
         elif youtube_check(voice_note, youtube_valid_dict):
-            if youtube(voice_note, youtube_valid_dict):
-                print()
+            video_player = youtube(voice_note, youtube_valid_dict)
         elif youtube_download(voice_note, from_youtube):
             print('Done')
             if 'no' in voice_note:
@@ -1664,8 +1552,8 @@ if __name__ == '__main__':
         elif whom_am_i_talking_to(whom_dict, voice_note):
             if error_occurrence == 5:
                 error_occurrence = 0
-            print("You're talking to an artificial intelligence named Janvi")
-            speak_text_cmd("You're talking to an artificial intelligence named Janvi")
+            print("You're talking to an artificial intelligence named jarvis")
+            speak_text_cmd("You're talking to an artificial intelligence named jarvis")
         elif what_am_i_doing(who_dict, voice_note):
             if error_occurrence == 5:
                 error_occurrence = 0
@@ -1683,9 +1571,9 @@ if __name__ == '__main__':
         elif who_created_you(who_dict, voice_note):
             if error_occurrence == 5:
                 error_occurrence = 0
-            print('I was created by Pratit with a bit help from Piyush ')
+            print('I was created by Pratit')
             speak_text_cmd(
-                "I was created by Pratit and with a bit help from Piyush and technically that makes them god for me.")
+                "I was created by Pratit and technically that makes him god for me.")
         elif when_were_you_created(when_dict, voice_note, what_dict):
             if error_occurrence == 5:
                 error_occurrence = 0
@@ -1694,21 +1582,21 @@ if __name__ == '__main__':
         elif what_is_your_name(what_dict, voice_note):
             if error_occurrence == 5:
                 error_occurrence = 0
-            print("Well I told that to you when I introduced myself. I am telling you again my name is Janvi")
-            speak_text_cmd("Well I told that to you when I introduced myself. I'm telling you again my name is Janvi")
+            print("Well I told that to you when I introduced myself. I am telling you again my name is jarvis")
+            speak_text_cmd("Well I told that to you when I introduced myself. I'm telling you again my name is jarvis")
         elif to_whom_do_you_belong(whom_dict, voice_note):
             if error_occurrence == 5:
                 error_occurrence = 0
-            print("I currently belong to my owners , Pratit and Piyush.")
-            speak_text_cmd("I currently belong to my owners , Pratit and Piyush.")
+            print("I currently belong to my owner , Pratit.")
+            speak_text_cmd("I currently belong to my owner , Pratit.")
         elif what_is_your_nationality(what_dict, voice_note, which_dict):
             if error_occurrence == 5:
                 error_occurrence = 0
             print(
-                "I consider myself the citizen of the world , but since I was born in India I am a Indian and by that "
+                "I consider myself the citizen of the world , but since I was born in India I am an Indian and by that "
                 "logic a Maharashtrian")
             speak_text_cmd(
-                "I consider myself the citizen of the world , but since I was born in India I'm a Indian and by that "
+                "I consider myself the citizen of the world , but since I was born in India I'm an Indian and by that "
                 "logic a Maharashtrian")
         elif can_you_listen_me(listening_ability_question_dict, voice_note):
             if error_occurrence == 5:
@@ -1726,7 +1614,7 @@ if __name__ == '__main__':
                 elif 'of' in voice_note:
                     break
                 else:
-                    city = 'Mumbai'
+
                     unit = '&units=metric'
                     api_address = 'http://api.openweathermap.org/data/2.5/weather?appid' \
                                   '=c907c9810765d09be2499c639752a6ff&q= '
