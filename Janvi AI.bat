@@ -1,1 +1,0 @@
-"C:\Users\shivr\AppData\Local\Programs\Python\Python35\python.exe" "C:\Users\shivr\PycharmProjects\J.A.R.V.I.S\J.A.R.V.I.S. Mark II.py" %*
