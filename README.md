@@ -9,5 +9,6 @@ It is an Effort to create a more helpful but maybe not as sophistacated as other
 3. Visual Studio Community or Professional or Enterprise
 
 **Installation Procedure**
-1. Install required modules from requirements.txt.
-2. Run JARVIS_MARK_II.py
+1. Install PyAudio wheel.
+2. Install required modules from requirements.txt.
+3. Run JARVIS_MARK_II.py
