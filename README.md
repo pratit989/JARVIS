@@ -11,5 +11,5 @@ It is an Effort to create a more helpful but maybe not as sophistacated as other
 **Installation Procedure**
 1. Install PyAudio wheel.
 2. Install required modules from requirements.txt by running the following command from the project folder 
-```pip install -r requirements.txt```.
+  ```pip install -r requirements.txt```.
 3. Run ```JARVIS_MARK_II.py```
