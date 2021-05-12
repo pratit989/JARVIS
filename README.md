@@ -15,8 +15,8 @@ It is an effort to create a more helpful but maybe not as sophistacated as other
 3. Run ```JARVIS_MARK_III.py```
 
 # Real time face recognition with MobileFaceNet
-##### A real time face recognition pipeline
-#### Forked from [fyr91](https://github.com/fyr91/face_recognition)  
+##### A real time face recognition pipeline forked from [fyr91](https://github.com/fyr91/face_recognition)
+
 Face detection: an ultra-light face detector + five points facial feature detector
 
 Face recognition: MobileFaceNet
