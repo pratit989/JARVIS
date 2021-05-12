@@ -1,7 +1,36 @@
+import time
+
 import TTS
 from configparser import ConfigParser
 from configparser import NoSectionError
 from configparser import NoOptionError
+from datetime import datetime
+
+program_sound = True
+user_name = 'Stranger'
+
+
+def get_part_of_day(hour):
+    return (
+        "morning" if 5 <= hour <= 11
+        else
+        "afternoon" if 12 <= hour <= 17
+        else
+        "evening" if 18 <= hour <= 22
+        else
+        "night"
+    )
+
+
+def name_change_detector():
+    global user_name
+    past_user: str
+    past_user = user_name
+    while True:
+        if past_user != user_name:
+            TTS.print_and_speak(f"Hi {user_name} good {get_part_of_day(datetime.now().hour)}")
+            past_user = user_name
+            time.sleep(0.5)
 
 
 def setting_mode():
@@ -34,7 +63,7 @@ class Configuration:
         voices = TTS.engine.getProperty('voices')
         # noinspection PyTypeChecker
         for voice in voices:
-            print(str(index) + '. ' + voice.name)
+            print(f'{str(index)}. {voice.name}')
             index += 1
         try:
             TTS.print_and_speak('Select a voice for me.')
@@ -56,7 +85,7 @@ class Configuration:
         index = 0
         sections = self.parser.sections()
         for section in sections:
-            print(str(index) + ') ' + section)
+            print(f'{str(index)}) {section}')
             index += 1
         TTS.speak("Select the category of setting that you would like to change? Enter it's index number")
         selected = int(input('Type:'))
@@ -69,15 +98,15 @@ class Configuration:
         for option in options:
             print(str(index) + ') ' + option)
             index += 1
-        TTS.speak("The following are all the options in" + section + "Select the option you want to change the value "
-                                                                     "for.")
+        TTS.speak(f"The following are all the options in{section}Select the option you want to change the value "
+                  "for.")
         selected = int(input('Type:'))
         self.set_value(section, option=options[selected])
 
     def set_value(self, section: str, option: str):
         print('\n')
-        TTS.speak('The current value for ' + option + ' is:')
-        print(option + ' = ' + self.parser.get(section, option))
+        TTS.speak(f'The current value for {option} is:')
+        print(f'{option} = {self.parser.get(section, option)}')
         TTS.speak("Enter the new value")
         value = input("Enter the new value:")
         self.parser.set(section, option, value)

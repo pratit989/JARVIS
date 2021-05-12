@@ -1,4 +1,6 @@
 # Necessary Modules
+import threading
+import time
 from random import choice
 
 from TTS import print_and_speak  # Import TTS always before Settings
@@ -17,11 +19,22 @@ for module in vocabulary.optional_modules:
 config = Settings.Configuration()
 
 if __name__ == '__main__':
-    print_and_speak("\nHello I am JARVIS voice by " + config.get_setting('Text to Speech', 'name'))
+    import face_recognition
+
+    face_thread = threading.Thread(target=face_recognition.start_face_recog)
+    face_thread.start()
+    time.sleep(10)
+    name_thread = threading.Thread(target=Settings.name_change_detector)
+    name_thread.start()
+    print_and_speak(f"\nHi {Settings.user_name} I am JARVIS voice by {config.get_setting('Text to Speech', 'name')}")
     input_function = define_input()
+    pause_program = False
 
     while True:
-        cmd = input_function().lower()
+        try:
+            cmd = input_function().lower()
+        except:
+            cmd = ''
         if 'jarvis' in cmd.split()[0]:
             cmd = cmd.replace('jarvis ', '', 1)
             pass
@@ -38,13 +51,14 @@ if __name__ == '__main__':
                 continue
             except Exception:
                 continue
+            Settings.program_sound = False
         elif any(element in cmd for element in vocabulary.close_player):
             try:
                 # noinspection PyUnboundLocalVariable
                 stream.stop()
             except Exception:
                 continue
-        elif any(element in cmd for element in vocabulary.pause_player) or\
+        elif any(element in cmd for element in vocabulary.pause_player) or \
                 any(element in cmd for element in vocabulary.resume_player):
             try:
                 stream.pause_or_resume()

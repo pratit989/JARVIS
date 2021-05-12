@@ -1,3 +1,4 @@
+import Settings
 from TTS import print_and_speak
 import speech_recognition
 from playsound import playsound
@@ -10,14 +11,16 @@ def listen_voice_cmd():
     try:
         with speech_recognition.Microphone() as source:
             print('\nListening...')
-            playsound(r'mp3/listening_robot_blip.mp3')
+            if Settings.program_sound:
+                playsound(r'mp3/listening_robot_blip.mp3')
             audio = speech.listen(source=source, timeout=4, phrase_time_limit=5)
             voice_text = speech.recognize_google(audio, language="en-IN")
             return voice_text
     except OSError:
         print_and_speak('Microphone is not connected')
     except speech_recognition.UnknownValueError:
-        playsound(r'mp3/struggling_1.mp3')
+        if Settings.program_sound:
+            playsound(r'mp3/struggling_1.mp3')
     except speech_recognition.RequestError:
         print_and_speak('I am currently facing a network issue. Please try again later')
     except speech_recognition.WaitTimeoutError:
@@ -26,7 +29,8 @@ def listen_voice_cmd():
 
 # Text input
 def read_chat_cmd():
-    playsound(r'mp3/listening_robot_blip.mp3')
+    if Settings.program_sound:
+        playsound(r'mp3/listening_robot_blip.mp3')
     text = input("\nType here:")
     return text
 
