@@ -14,7 +14,7 @@ It is an effort to create a more helpful but maybe not as sophisticated as other
    ```pip install "PyAudio Wheel/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl"```  
 3. Install required modules from requirements.txt by running the following command from the project folder.  
 ```pip install -r requirements.txt```  
-4. Run ```JARVIS_MARK_III.py```
+4. Run ```jarvis_v3.py```
 
 # Real time face recognition with MobileFaceNet
 #### A real time face recognition pipeline forked from [fyr91](https://github.com/fyr91/face_recognition)
