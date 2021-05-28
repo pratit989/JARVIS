@@ -1,5 +1,5 @@
 
-optional_modules = ['Youtube_player', 'chitchat', 'Search']
+optional_modules = ['youtube_player', 'chitchat', 'Search']
 # -------------------------------------------------------------------------------------------------------------------- #
 
 greeting = ['hello', 'hi', 'hey']

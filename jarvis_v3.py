@@ -1,4 +1,5 @@
 # Necessary Modules
+import sys
 import threading
 import time
 from random import choice
@@ -26,26 +27,26 @@ if __name__ == '__main__':
     time.sleep(10)
     name_thread = threading.Thread(target=Settings.name_change_detector)
     name_thread.start()
-    print_and_speak(f"\nHi {Settings.user_name} I am JARVIS voice by {config.get_setting('Text to Speech', 'name')}")
+    print_and_speak(f"\n"
+                    f"Hi {Settings.user_name} I am JARVIS "
+                    f"voice by {config.get_setting('Text to Speech', 'name')}")
     input_function = define_input()
-    pause_program = False
+    PAUSE_PROGRAM = False
 
     while True:
-        try:
-            cmd = input_function().lower()
-        except:
-            cmd = ''
+
+        cmd = input_function().lower()
+
         if 'jarvis' in cmd.split()[0]:
             cmd = cmd.replace('jarvis ', '', 1)
-            pass
         if any(element in cmd.split() for element in vocabulary.greeting):
             from vocabulary import response_greeting
 
             print_and_speak(choice(response_greeting))
         elif 'play' in cmd.split()[0]:
             try:
-                stream: modules["Youtube_player"].YoutubePlayer = \
-                    modules['Youtube_player'].YoutubePlayer(str(cmd.split()[1:]))
+                stream: modules["youtube_player"].YoutubePlayer = \
+                    modules['youtube_player'].YoutubePlayer(str(cmd.split()[1:]))
             except ModuleNotFoundError:
                 print_and_speak('The youtube player module is not installed')
                 continue
@@ -83,4 +84,4 @@ if __name__ == '__main__':
         elif any(element in cmd for element in vocabulary.settings_vocab):
             Settings.setting_mode()
         elif any(element in cmd for element in vocabulary.exit_words):
-            exit(0)
+            sys.exit(0)
