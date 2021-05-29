@@ -14,7 +14,9 @@ It is an effort to create a more helpful but maybe not as sophisticated as other
    ```pip install "PyAudio Wheel/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl"```  
 3. Install required modules from requirements.txt by running the following command from the project folder.  
 ```pip install -r requirements.txt```  
-4. Run ```jarvis_v3.py```
+4. Run ```jarvis_v3.py```  
+5. Download & install rainmeter from [Rainmeter.net](https://www.rainmeter.net/)  
+6. Open .rmskin file downloaded from the latest release at [JARVIS releases](https://github.com/pratit989/J.A.R.V.I.S/releases)
 
 # Real time face recognition with MobileFaceNet
 #### A real time face recognition pipeline forked from [fyr91](https://github.com/fyr91/face_recognition)
