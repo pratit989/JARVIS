@@ -2,6 +2,7 @@
 import json
 import sys
 import threading
+import time
 from random import choice
 
 import MongoDB
@@ -22,11 +23,11 @@ for module in vocabulary.optional_modules:
 config = Settings.Configuration()
 
 if __name__ == '__main__':
-    # import face_recognition
+    import face_recognition
 
-    # face_thread = threading.Thread(target=face_recognition.start_face_recog)
-    # face_thread.start()
-    # time.sleep(10)
+    face_thread = threading.Thread(target=face_recognition.start_face_recog)
+    face_thread.start()
+    time.sleep(10)
     name_thread = threading.Thread(target=Settings.name_change_detector)
     name_thread.start()
     print_and_speak(f"\n"
