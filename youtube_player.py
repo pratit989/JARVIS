@@ -1,24 +1,35 @@
+# importing the module
+
+from re import findall
 from urllib.parse import quote as encode
 from urllib.request import urlopen
-from re import findall
+
 from pafy import new
+from pytube import YouTube
 from vlc import Instance
+
+from TTS import print_and_speak
 
 
 class YoutubePlayer:
-    def __init__(self, term: str):
+    def __init__(self, term: str, download=False):
+        self.title: str
         self.i = 1
         self.search_term = encode(term)
+        print_and_speak(f"Searching")
         self.result = self.search()
         self.link = self.choice()
-        self.play()
+        if not download:
+            self.play()
+        elif download:
+            self.download()
 
     def search(self):
-        html = urlopen("https://www.youtube.com/results?search_query=" + self.search_term)
+        html = urlopen(f"https://www.youtube.com/results?search_query={self.search_term}")
         video_ids = findall(r"watch\?v=(\S{11})", html.read().decode())[:5]
         results = {}
         for video_id in video_ids:
-            link = "https://youtube.com/watch?v=" + video_id
+            link = f"https://youtube.com/watch?v={video_id}"
             try:
                 name = new(link).title
                 results[name] = link
@@ -28,12 +39,13 @@ class YoutubePlayer:
 
     def choice(self):
         from TTS import print_and_speak
-        print_and_speak("Here are the top " + str(len(self.result)) + " results for your search")
+        print_and_speak(f"Here are the top {len(self.result)} results for your search")
         titles = list(self.result.keys())
         for title in titles:
             print(str(self.i) + '. ' + title)
             self.i += 1
         selector = int(input('\nEnter your choice:')) - 1
+        self.title = titles[selector]
         return self.result[titles[selector]]
 
     def play(self):
@@ -54,3 +66,14 @@ class YoutubePlayer:
 
     def pause_or_resume(self):
         self.player.pause()
+
+    def download(self):
+        # where to save
+        try:
+            print_and_speak(f'Downloading {self.title}')
+            YouTube(self.link).streams.first().download(output_path='Downloads')
+            open('Downloads')
+        except PermissionError:
+            pass
+        except Exception:
+            print_and_speak(f"Error downloading {self.title}")

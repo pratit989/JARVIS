@@ -1,9 +1,11 @@
 # Necessary Modules
+import json
 import sys
 import threading
-import time
 from random import choice
 
+import MongoDB
+import TTS
 from TTS import print_and_speak  # Import TTS always before Settings
 import Settings
 from Input_system import define_input
@@ -20,11 +22,11 @@ for module in vocabulary.optional_modules:
 config = Settings.Configuration()
 
 if __name__ == '__main__':
-    import face_recognition
+    # import face_recognition
 
-    face_thread = threading.Thread(target=face_recognition.start_face_recog)
-    face_thread.start()
-    time.sleep(10)
+    # face_thread = threading.Thread(target=face_recognition.start_face_recog)
+    # face_thread.start()
+    # time.sleep(10)
     name_thread = threading.Thread(target=Settings.name_change_detector)
     name_thread.start()
     print_and_speak(f"\n"
@@ -83,5 +85,23 @@ if __name__ == '__main__':
                 continue
         elif any(element in cmd for element in vocabulary.settings_vocab):
             Settings.setting_mode()
+        elif any(element in cmd for element in vocabulary.database):
+            print_and_speak("Enter the following credentials to access student database:")
+            TTS.speak("Username")
+            username = input("Username: ")
+            # username = ""
+            TTS.speak("Password")
+            password = input("Password: ")
+            # password = ''
+            MongoDB.initialise_database(username, password)
+            TTS.speak("Enter the enrollment number for which to fetch data")
+            enroll_no = int(input("Enrollment Number: "))
+            data = MongoDB.get_data(enroll_no)
+            # data = MongoDB.get_data(1805680240)
+            if data is not None:
+                print(json.dumps(data, indent=4, sort_keys=True))
+        elif any(element in cmd for element in vocabulary.download):
+            stream: modules["youtube_player"].YoutubePlayer = \
+                modules['youtube_player'].YoutubePlayer(str(cmd.split()[1:]), True)
         elif any(element in cmd for element in vocabulary.exit_words):
             sys.exit(0)

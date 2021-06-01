@@ -1,4 +1,3 @@
-
 optional_modules = ['youtube_player', 'chitchat', 'Search']
 # -------------------------------------------------------------------------------------------------------------------- #
 
@@ -16,3 +15,7 @@ pause_player = ['pause the player', 'pause player', 'pause the music', 'pause so
                 'pause video']
 resume_player = ['resume the player', 'resume player', 'resume the music', 'resume music', 'resume video',
                  'resume the video']
+
+database = ['get data', 'get student data', 'bring data', 'give data', 'fetch student data', 'fetch data']
+
+download = ['download the file', 'download the song', 'download']
