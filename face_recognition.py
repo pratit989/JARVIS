@@ -149,7 +149,7 @@ def start_face_recog():
             phase_train_placeholder = tf.get_default_graph().get_tensor_by_name("phase_train:0")
             embedding_size = embeddings.get_shape()[1]
 
-            video_capture = cv2.VideoCapture(1)
+            video_capture = cv2.VideoCapture(0)
 
             while True:
                 fps = video_capture.get(cv2.CAP_PROP_FPS)
@@ -204,6 +204,7 @@ def start_face_recog():
                             predictions.append("unknown")
 
                     Settings.user_name = predictions[i]
+                    Settings.video_status = True
                     # draw
                     for i in range(boxes.shape[0]):
                         box = boxes[i, :]
@@ -218,6 +219,9 @@ def start_face_recog():
                         cv2.putText(frame, text, (x1 + 6, y2 - 6), font, 0.3, (255, 255, 255), 1)
 
                 cv2.imshow('Video', frame)
+
+                if Settings.kill_thread:
+                    break
 
                 # Hit 'q' on the keyboard to quit!
                 if cv2.waitKey(1) & 0xFF == ord('q'):

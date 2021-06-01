@@ -8,6 +8,8 @@ from datetime import datetime
 
 program_sound = True
 user_name = 'Stranger'
+video_status = False
+kill_thread = False
 
 
 def get_part_of_day(hour):

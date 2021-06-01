@@ -27,12 +27,13 @@ if __name__ == '__main__':
 
     face_thread = threading.Thread(target=face_recognition.start_face_recog)
     face_thread.start()
-    time.sleep(10)
+    while not Settings.video_status:
+        time.sleep(1)
+        pass  # Exit loop after starting webcam & detecting someone
     name_thread = threading.Thread(target=Settings.name_change_detector)
     name_thread.start()
-    print_and_speak(f"\n"
-                    f"Hi {Settings.user_name} I am JARVIS "
-                    f"voice by {config.get_setting('Text to Speech', 'name')}")
+    print_and_speak(f"\nHi {Settings.user_name} I am JARVIS voice by {config.get_setting('Text to Speech', 'name')}")
+    Settings.kill_thread = True
     input_function = define_input()
     PAUSE_PROGRAM = False
 
