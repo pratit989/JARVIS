@@ -1,5 +1,4 @@
 import pickle
-import threading
 
 import cv2
 import dlib
@@ -10,9 +9,8 @@ import tensorflow as tf
 from imutils import face_utils
 from onnx_tf.backend import prepare
 
-from TTS import print_and_speak
-
 import Settings
+from TTS import print_and_speak
 
 
 def area_of(left_top, right_bottom):
