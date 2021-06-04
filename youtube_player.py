@@ -35,6 +35,8 @@ class YoutubePlayer:
                 results[name] = link
             except OSError:
                 pass
+            except KeyError:
+                pass
         return results
 
     def choice(self):

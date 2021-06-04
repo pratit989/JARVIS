@@ -13,6 +13,8 @@ def get_elements(session):
             get_description()
         except KeyError:
             get_description()
+        except webview.util.WebViewException:
+            pass
 
     # Get description element
     def get_description():
