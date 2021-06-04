@@ -6,7 +6,7 @@ response_greeting = ['hi', 'hello', 'hi, nice to meet you', 'hello nice to meet 
                      'hey there nice to meet you', 'hey nice to meet you']
 personal = ['you', 'your', 'your', "you're", 'yours']
 search_query = ['what', 'why', 'who', 'which', 'when', 'how', 'where', "how's", "who's", "what's", "where's ", "when's",
-                'explain', 'whose']
+                'explain', 'whose', 'open']
 exit_words = ['bye', 'goodbye', 'exit']
 settings_vocab = ['open settings', 'open setting', 'go to setting', 'go to settings']
 close_player = ['close the player', 'turn the music of', 'turn it of', 'turn of the player', 'close the player',
