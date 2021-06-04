@@ -7,8 +7,8 @@ from urllib.request import urlopen
 from pafy import new
 from pytube import YouTube
 from vlc import Instance
-
 from TTS import print_and_speak
+import Settings
 
 
 class YoutubePlayer:
@@ -59,6 +59,7 @@ class YoutubePlayer:
             media.get_mrl()
             self.player.set_media(media)
             self.player.play()
+            Settings.program_sound = False
             return self.player
         except OSError:
             self.play()

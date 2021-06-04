@@ -3,7 +3,6 @@ import sys
 import threading
 import time
 from random import choice
-
 import MongoDB
 import TTS
 from TTS import print_and_speak  # Import TTS always before Settings

@@ -1,9 +1,9 @@
-import Settings
 import urllib.parse
 
 import pymongo as pymongo
 from pymongo import errors
 from TTS import print_and_speak
+import Settings
 
 
 def initialise_database(username, password):
