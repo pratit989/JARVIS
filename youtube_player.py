@@ -16,7 +16,7 @@ class YoutubePlayer:
         self.title: str
         self.i = 1
         self.search_term = encode(term)
-        print_and_speak(f"Searching")
+        print_and_speak("Searching")
         self.result = self.search()
         self.link = self.choice()
         if not download:
