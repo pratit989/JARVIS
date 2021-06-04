@@ -1,8 +1,8 @@
+import Settings
 import urllib.parse
 
 import pymongo as pymongo
 from pymongo import errors
-
 from TTS import print_and_speak
 
 
@@ -24,6 +24,7 @@ def initialise_database(username, password):
     except errors.OperationFailure as error:
         print_and_speak(error.details['errmsg'])
         print_and_speak("Database failed to initialised\n")
+        Settings.logged_in = False
 
 
 def get_data(enrollment_no):
