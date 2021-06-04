@@ -20,7 +20,10 @@ def speak(text):
     except RuntimeError:
         pass
     engine.say(text)
-    engine.runAndWait()
+    try:
+        engine.runAndWait()
+    except RuntimeError:
+        pass
 
 
 def print_and_speak(text):
