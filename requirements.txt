@@ -48,7 +48,7 @@ pytube==10.8.2
 pytz==2021.1
 pywebview==3.4
 pywin32==300
-PyYAML==5.1.2
+PyYAML==5.4
 requests==2.25.1
 selenium==3.141.0
 six==1.12.0
