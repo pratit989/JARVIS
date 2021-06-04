@@ -37,8 +37,3 @@ def get_data(enrollment_no):
         return data
     except IndexError:
         print_and_speak(f"No student data found that matches the enrollment number {enrollment_no}")
-
-
-'''initialise_database('darshan123', 'Test123')
-integer = int(input('enroll no: '))
-get_data(integer)'''
