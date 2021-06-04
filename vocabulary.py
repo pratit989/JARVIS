@@ -19,3 +19,7 @@ resume_player = ['resume the player', 'resume player', 'resume the music', 'resu
 database = ['get data', 'get student data', 'bring data', 'give data', 'fetch student data', 'fetch data']
 
 download = ['download the file', 'download the song', 'download']
+
+chat_to_voice = ['to voice', 'talk with me', 'talk mode']
+
+voice_to_chat = ['to chat', 'chat with me', 'chat mode', 'to text']

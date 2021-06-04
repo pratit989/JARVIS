@@ -1,3 +1,5 @@
+import contextlib
+import sys
 import time
 
 import TTS
@@ -10,6 +12,19 @@ program_sound = True
 user_name = 'Stranger'
 video_status = False
 kill_thread = False
+logged_in = False
+
+
+class DummyFile(object):
+    def write(self, x): pass
+
+
+@contextlib.contextmanager
+def no_stdout():
+    save_stdout = sys.stdout
+    sys.stdout = DummyFile()
+    yield
+    sys.stdout = save_stdout
 
 
 def get_part_of_day(hour):

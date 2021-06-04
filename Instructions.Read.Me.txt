@@ -1,4 +1,4 @@
-**Requirments**
+**Requirements**
 1. Python 3.7
 2. Visual Studio C++ Build Tools
 3. Visual Studio Community/ Professional/ Enterprise

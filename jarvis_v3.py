@@ -1,5 +1,4 @@
 # Necessary Modules
-import json
 import sys
 import threading
 import time
@@ -39,7 +38,10 @@ if __name__ == '__main__':
 
     while True:
 
-        cmd = input_function().lower()
+        try:
+            cmd = input_function().lower()
+        except AttributeError:
+            print_and_speak("Failed to get Input")
 
         if 'jarvis' in cmd.split()[0]:
             cmd = cmd.replace('jarvis ', '', 1)
@@ -88,22 +90,35 @@ if __name__ == '__main__':
         elif any(element in cmd for element in vocabulary.settings_vocab):
             Settings.setting_mode()
         elif any(element in cmd for element in vocabulary.database):
-            print_and_speak("Enter the following credentials to access student database:")
-            TTS.speak("Username")
-            username = input("Username: ")
+            if not Settings.logged_in:
+                print_and_speak("Enter the following credentials to access student database:")
+                TTS.speak("Username")
+                username = input("Username: ")
+                TTS.speak("Password")
+                password = input("Password: ")
+                Settings.logged_in = True
+            else:
+                pass
             # username = ""
-            TTS.speak("Password")
-            password = input("Password: ")
             # password = ''
-            MongoDB.initialise_database(username, password)
-            TTS.speak("Enter the enrollment number for which to fetch data")
-            enroll_no = int(input("Enrollment Number: "))
-            data = MongoDB.get_data(enroll_no)
-            # data = MongoDB.get_data(1805680240)
-            if data is not None:
-                print(json.dumps(data, indent=4, sort_keys=True))
+            if Settings.logged_in:
+                MongoDB.initialise_database(username, password)
+                TTS.speak("Enter the enrollment number for which to fetch data")
+                enroll_no = int(input("Enrollment Number: "))
+                data = MongoDB.get_data(enroll_no)
+                # data = MongoDB.get_data(1805680240)
+                if data is not None:
+                    for n in data:
+                        print(f"{str(n).capitalize()}: {data[n]}")
+                    # print(json.dumps(data, indent=4, sort_keys=True))
         elif any(element in cmd for element in vocabulary.download):
             stream: modules["youtube_player"].YoutubePlayer = \
                 modules['youtube_player'].YoutubePlayer(str(cmd.split()[1:]), True)
+        elif any(element in cmd for element in vocabulary.voice_to_chat):
+            from Input_system import read_chat_cmd
+            input_function = read_chat_cmd
+        elif any(element in cmd for element in vocabulary.chat_to_voice):
+            from Input_system import listen_voice_cmd
+            input_function = listen_voice_cmd
         elif any(element in cmd for element in vocabulary.exit_words):
             sys.exit(0)
