@@ -4,6 +4,7 @@ import threading
 import time
 from random import choice
 import MongoDB
+import Search
 import TTS
 from TTS import print_and_speak  # Import TTS always before Settings
 import Settings
@@ -119,5 +120,7 @@ if __name__ == '__main__':
         elif any(element in cmd for element in vocabulary.chat_to_voice):
             from Input_system import listen_voice_cmd
             input_function = listen_voice_cmd
+        elif any(element in cmd for element in vocabulary.covid_tracker):
+            Search.open_page('https://dkcovid19-tracker.herokuapp.com/')
         elif any(element in cmd for element in vocabulary.exit_words):
             sys.exit(0)

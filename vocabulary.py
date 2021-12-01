@@ -23,3 +23,5 @@ download = ['download the file', 'download the song', 'download']
 chat_to_voice = ['to voice', 'talk with me', 'talk mode']
 
 voice_to_chat = ['to chat', 'chat with me', 'chat mode', 'to text']
+
+covid_tracker = ['get covid tracker']

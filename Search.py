@@ -25,6 +25,7 @@ def get_elements(session):
             speak("Here are the search results for your query.")
         except KeyError:
             speak("Here are the search results for your query.")
+
     get_answer()
 
 
@@ -34,4 +35,9 @@ def query(user_input: str):
 
 def search_window(to_search: str):
     window = webview.create_window('JARVIS', url='https://www.google.co.in/search?q=' + to_search)
+    webview.start(get_elements, window)
+
+
+def open_page(url: str):
+    window = webview.create_window('JARVIS', url=url)
     webview.start(get_elements, window)
