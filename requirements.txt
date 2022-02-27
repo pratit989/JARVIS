@@ -47,7 +47,7 @@ pyttsx3==2.90
 pytube
 pytz==2021.1
 pywebview==3.4
-pywin32==300
+pywin32==301
 PyYAML==5.4
 requests==2.25.1
 selenium==3.141.0
