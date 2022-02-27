@@ -23,7 +23,7 @@ Markdown==3.1.1
 mock==3.0.5
 moviepy==1.0.3
 mtcnn==0.0.9
-numpy==1.17.3
+numpy==1.21.0
 onnx==1.7.0
 onnx-tf==1.5.0
 onnxruntime==1.5.1
