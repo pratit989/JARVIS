@@ -1,4 +1,5 @@
 # Necessary Modules
+from importlib import import_module
 import sys
 import threading
 import time
@@ -15,7 +16,7 @@ import vocabulary
 modules = {}
 for module in vocabulary.optional_modules:
     try:
-        modules[module] = __import__(module)
+        modules[module] = import_module(module)
     except ImportError:
         pass
 
