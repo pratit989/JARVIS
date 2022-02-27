@@ -3,7 +3,7 @@ astor==0.8.0
 beautifulsoup4==4.9.3
 certifi==2019.9.11
 chardet==4.0.0
-chromedriver-autoinstaller==0.2.2
+chromedriver-autoinstaller==0.3.1
 comtypes==1.1.10
 configparser==5.0.2
 decorator==4.4.2
@@ -33,7 +33,7 @@ pafy==0.5.5
 pandas
 pathtools==0.1.2
 Pillow==8.2.0
-playsound==1.2.2
+playsound==1.3.0
 proglog==0.1.9
 protobuf==3.10.0
 PyAudio Wheel/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl
@@ -44,7 +44,7 @@ python-dateutil==2.8.1
 python-vlc==3.0.12118
 pythonnet==2.5.2
 pyttsx3==2.90
-pytube==10.8.2
+pytube
 pytz==2021.1
 pywebview==3.4
 pywin32==300
@@ -66,5 +66,5 @@ Werkzeug==0.16.0
 wikipedia==1.4.0
 wincertstore==0.2
 wrapt==1.11.2
-youtube-dl==2021.5.16
-youtube-search==2.1.0
+youtube-dl
+youtube-search
