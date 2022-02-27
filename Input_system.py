@@ -11,8 +11,8 @@ def listen_voice_cmd():
     try:
         with speech_recognition.Microphone() as source:
             print('\nListening...')
-            if Settings.program_sound:
-                playsound(r'mp3/listening_robot_blip.mp3')
+            # if Settings.program_sound:
+                # playsound(r'mp3/listening_robot_blip.mp3')
             audio = speech.listen(source=source, timeout=4, phrase_time_limit=5)
             voice_text = speech.recognize_google(audio, language="en-IN")
             return voice_text
