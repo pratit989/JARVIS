@@ -31,12 +31,16 @@ class YoutubePlayer:
         for video_id in video_ids:
             link = f"https://youtube.com/watch?v={video_id}"
             try:
-                name = new(link).title
-                results[name] = link
-            except OSError:
+                name = new(link)
+                results[name.title] = link
+            except OSError as osError:
+                print(osError)
                 pass
-            except KeyError:
+            except KeyError as keyError:
+                print(keyError)
                 pass
+            except Exception as e:
+                print(e)
         return results
 
     def choice(self):
@@ -78,5 +82,5 @@ class YoutubePlayer:
             open('Downloads')
         except PermissionError:
             pass
-        except Exception:
-            print_and_speak(f"Error downloading {self.title}")
+        except Exception as e:
+            print_and_speak(f"The following error occurred while Downloading Error downloading {self.title}")
