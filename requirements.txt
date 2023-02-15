@@ -62,7 +62,7 @@ tqdm==4.61.0
 typing-extensions==3.7.4
 urllib3==1.26.5
 watchdog==2.1.2
-Werkzeug==0.16.0
+Werkzeug==2.2.3
 wikipedia==1.4.0
 wincertstore==0.2
 wrapt==1.11.2
